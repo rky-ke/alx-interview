@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 # n = int(input("Enter number of rows:"))
 def pascal_triangle(n):
     pascal_list = []
