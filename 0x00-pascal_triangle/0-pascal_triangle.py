@@ -1,6 +1,9 @@
 #!/usr/bin/python3
 # n = int(input("Enter number of rows:"))
 def pascal_triangle(n):
+    '''
+    Returns a Pascal triangle
+    '''
     pascal_list = []
     for i in range(n):
         number_list = []
