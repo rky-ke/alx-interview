@@ -4,32 +4,29 @@ Lock Boxes
 """
 
 
-from collections import deque
-
-
 def canUnlockAll(boxes):
+    """Determines if all the boxes can be opened.
+
+    Args:
+        boxes (lst): the list of boxes containing a list of keys.
+
+    Returns:
+        bool: True if all boxes can be opened, False otherwise.
     """
-        Return True if all boxes can be opened, else return False
-    """
-    num_boxes = len(boxes)
-    seen_boxes = set()
-    keys_queue = deque([0])  # Start with the key to the first box (index 0)
+    box_count = len(boxes)
 
-    while keys_queue:
-        current_box = keys_queue.popleft()
-        seen_boxes.add(current_box)
+    if box_count > 0:
+        keys = boxes[0]
+        boxes[0] = [-1]
+        while keys:
+            new_keys = []
+            for key in keys:
+                if key < box_count:
+                    if boxes[key] != [-1]:
+                        new_keys += boxes[key]
+                        boxes[key] = [-1]
+            keys = new_keys
 
-        # Add keys from the current box to the queue
-        for key in boxes[current_box]:
-            if key < num_boxes and key not in seen_boxes:
-                keys_queue.append(key)
+        return boxes.count([-1]) == box_count
 
-    # Check if all boxes have been seen
-    return len(seen_boxes) == num_boxes
-
-# # Example usage:
-# boxes = [[1], [2], [3], []]  # Each box contains the key to the next box
-# print(canUnlockAll(boxes))  # Output: True
-
-# boxes = [[1, 3], [2], [3], []]  # Box 0 has keys to boxes 1 and 3
-# print(canUnlockAll(boxes))  # Output: False
+    return False
